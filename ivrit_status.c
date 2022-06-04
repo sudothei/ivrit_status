@@ -5,6 +5,44 @@
 #include <unistd.h>
 
 int interval = 1;
+/*these are typed backwards on purpose*/
+static char *cardinals[] =  {
+    "דחא" ,
+    "םיינש" ,
+    "השולש" ,
+    "העברא" ,
+    "השימח" ,
+    "השיש" ,
+    "העבש" ,
+    "הנומש" ,
+    "העשת" ,
+    "הרשע" ,
+    "םירשע" ,
+    "םישולש"
+};
+static char *hebrew_months[] = {
+    "ראוני" ,
+    "ראורבפ" ,
+    "צרמ" ,
+    "לירפא" ,
+    "יאמ" ,
+    "ינוי" ,
+    "ילוי" ,
+    "טסוגןא" ,
+    "רבמטפס" ,
+    "רבוטקוא" ,
+    "רבמבונ" ,
+    "רבמצד"
+};
+static char *hebrew_days[] = {
+    "ןושאר" ,
+    "ינש" ,
+    "ישילש" ,
+    "יעיבר" ,
+    "ישימח" ,
+    "ישיש" ,
+    "תבש"
+};
 
 /*
  *returns 1 if discharging
@@ -60,21 +98,6 @@ int main()
         char month_of_year[256];
         get_command(month_of_year, sizeof(month_of_year), "date +\"%m\" | tr -d \"\\t\\n\\r\"");
         int month_num = atoi(month_of_year);
-        /*these are typed backwards on purpose*/
-        static char* hebrew_months[] = {
-            "ראוני" ,
-            "ראורבפ" ,
-            "צרמ" ,
-            "לירפא" ,
-            "יאמ" ,
-            "ינוי" ,
-            "ילוי" ,
-            "טסוגןא" ,
-            "רבמטפס" ,
-            "רבוטקוא" ,
-            "רבמבונ" ,
-            "רבמצד"
-        };
         strcat(status, hebrew_months[month_num - 1]);
         strcat(status, "ב" );
 
@@ -88,47 +111,23 @@ int main()
         char day_ordinal[256];
         day_ordinal[0] = '\0';
         char ones_ordinal[256];
-        /*these are typed backwards on purpose*/
-        static char* ones_ordinals[] = {
-            "ןושאר" , //first
-            "ינש" , //second
-            "ישילש" , //third
-            "יעיבר" , //fourth
-            "ישימח" , //fifth
-            "ישש" , //sixth
-            "יעיבש" , //seventh
-            "ינימש" , //eighth
-            "ינישת" , //ninth
-            "ירישע" //tenth
-        };
-        static char* ones_cardinals[] =  {
-            "דחא" , //one
-            "מינש" , //two
-            "השלש" , //three
-            "העברא" , //four
-            "השימח" , //five
-            "השש" , //six
-            "העבש" , //seven
-            "הנומש" , //eight
-            "העשת" , //nine
-        };
         if (day_num < 11) {
-            strcat(day_ordinal, ones_ordinals[day_num - 1]);
+            strcat(day_ordinal, cardinals[day_num - 1]);
         } else if (day_num > 10 && day_num < 20) {
             strcat(day_ordinal, "רשע" );
             strcat(day_ordinal, " ");
-            strcat(day_ordinal, ones_cardinals[day_num - 11]);
+            strcat(day_ordinal, cardinals[day_num - 11]);
         } else if (day_num == 20) {
             strcat(day_ordinal, "מירשע" );
         } else if (day_num > 20 && day_num < 30) {
-            strcat(day_ordinal, ones_cardinals[day_num - 21]);
+            strcat(day_ordinal, cardinals[day_num - 21]);
             strcat(day_ordinal, "ו" );
             strcat(day_ordinal, " ");
             strcat(day_ordinal, "מירשע" );
         } else if (day_num == 30) {
             strcat(day_ordinal, "מישולש" );
         } else {
-            strcat(day_ordinal, ones_cardinals[day_num - 31]);
+            strcat(day_ordinal, cardinals[day_num - 31]);
             strcat(day_ordinal, "ו" );
             strcat(day_ordinal, " ");
             strcat(day_ordinal, "מישולש" );
@@ -142,18 +141,8 @@ int main()
         char day_of_week[256];
         get_command(day_of_week, sizeof(day_of_week), "date +\"%w\" | tr -d \"\\t\\n\\r\"");
         day_num = atoi(day_of_week);
-        /*these are typed backwards on purpose*/
-        static char* hebrew_days[] = {
-            "ןושאר" ,
-            "ינש" ,
-            "ישילש" ,
-            "יעיבר" ,
-            "ישימח" ,
-            "ישיש" ,
-            "תבש"
-        };
         strcat(status, hebrew_days[day_num]);
-        if (day_num < 7) {
+        if (day_num < 6) {
             strcat(status, " " );
             strcat(status, "מוי" );
         };

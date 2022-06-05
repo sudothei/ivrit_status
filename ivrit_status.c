@@ -181,7 +181,6 @@ int main()
         strcat(status, time);
 
         /*output and sleep*/
-        fprintf(stderr, "%s", status);
         setxroot(status);
         sleep(interval);
     }

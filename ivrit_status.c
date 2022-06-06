@@ -167,7 +167,7 @@ int main()
 
         /*volume*/
         char volume[4];
-        get_command(volume, sizeof(volume), "amixer get Master | grep -Eo \"\\w+%\" | head -n 1 | tr -d \"\\t\\n\\r\"");
+        get_command(volume, sizeof(volume), "amixer get Master | grep -Eo \"\\w+%\" | head -n 1 | tr -d \"\\t\\n\\r%\"");
         strcat(status, volume);
 
         /*gap*/

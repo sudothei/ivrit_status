@@ -6,5 +6,6 @@ Runs every second
 
 Displays date in Hebrew similar to "Friday, June Third"
 
-To use, call the compiled binary in your `~/.xinitrc` like this
-`/opt/ivrit_status/ivrit_status &`
+To install, run `sudo make clean install`
+
+To use, call the installed binary in your `~/.xinitrc` like this `ivrit_status &`

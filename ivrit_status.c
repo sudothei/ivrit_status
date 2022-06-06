@@ -55,12 +55,13 @@ int is_discharging() {
     if (strcmp(charging_status, "Discharging") == 0) {
         return 1;
     }
+    return 0;
 }
 
 /*
  *writes output of a bash command to a buffer
  */
-const char * get_command(char* buffer, int buffersize, char* command) {
+void get_command(char* buffer, int buffersize, char* command) {
     char buf[256];
     FILE *f = popen(command, "r");
     fgets(buf, sizeof(buf), f);
@@ -72,11 +73,9 @@ const char * get_command(char* buffer, int buffersize, char* command) {
 /*
  *sets the X server root window text
  */
-int setxroot(char* status) {
+void setxroot(char* status) {
     Display * dpy = NULL;
     Window win = 0;
-    size_t length = 0;
-    ssize_t bytes_read = 0;
     dpy = XOpenDisplay(getenv("DISPLAY"));
     if (dpy == NULL)
     {
@@ -110,7 +109,6 @@ int main()
         int day_num = atoi(day_of_month);
         char day_ordinal[256];
         day_ordinal[0] = '\0';
-        char ones_ordinal[256];
         if (day_num < 11) {
             strcat(day_ordinal, cardinals[day_num - 1]);
         } else if (day_num > 10 && day_num < 20) {

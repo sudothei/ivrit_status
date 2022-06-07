@@ -80,11 +80,12 @@ void setxroot(char* status) {
     if (dpy == NULL)
     {
             fprintf(stderr, "Can't open display, exiting.\n");
-            exit(1);
+            return;
     }
     win = DefaultRootWindow(dpy);
     XStoreName(dpy, win, status);
     XFlush(dpy);
+    XCloseDisplay(dpy);
 }
 
 int main()
@@ -116,19 +117,19 @@ int main()
             strcat(day_ordinal, " ");
             strcat(day_ordinal, cardinals[day_num - 11]);
         } else if (day_num == 20) {
-            strcat(day_ordinal, "מירשע" );
+            strcat(day_ordinal, "םירשע" );
         } else if (day_num > 20 && day_num < 30) {
             strcat(day_ordinal, cardinals[day_num - 21]);
             strcat(day_ordinal, "ו" );
             strcat(day_ordinal, " ");
-            strcat(day_ordinal, "מירשע" );
+            strcat(day_ordinal, "םירשע" );
         } else if (day_num == 30) {
-            strcat(day_ordinal, "מישולש" );
+            strcat(day_ordinal, "םישולש" );
         } else {
             strcat(day_ordinal, cardinals[day_num - 31]);
             strcat(day_ordinal, "ו" );
             strcat(day_ordinal, " ");
-            strcat(day_ordinal, "מישולש" );
+            strcat(day_ordinal, "םישולש" );
         }
         strcat(status, day_ordinal);
 
@@ -142,7 +143,7 @@ int main()
         strcat(status, hebrew_days[day_num]);
         if (day_num < 6) {
             strcat(status, " " );
-            strcat(status, "מוי" );
+            strcat(status, "םוי" );
         };
 
         /*split separator*/
